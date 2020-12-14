@@ -1,7 +1,16 @@
 --====================================================================================
 -- #Author: Jonathan D @ Gannon
 --====================================================================================
- 
+if config.PhoneAsItem then
+  ESX = nil
+  Citizen.CreateThread(function()
+    while ESX == nil do
+      TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+      Citizen.Wait(0)
+    end
+  end)
+end
+
 -- Configuration
 local KeyToucheCloseEvent = {
   { code = 172, event = 'ArrowUp' },
@@ -42,30 +51,18 @@ end
 function ShowNoPhoneWarning ()
 end
 
---[[
-  Ouverture du téphone lié a un item
-  Un solution ESC basé sur la solution donnée par HalCroves
-  https://forum.fivem.net/t/tutorial-for-gcphone-with-call-and-job-message-other/177904
-
-ESX = nil
-Citizen.CreateThread(function()
-	while ESX == nil do
-		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
+if config.PhoneAsItem then
+  function hasPhone (cb)
+    if (ESX == nil) then return cb(0) end
+    ESX.TriggerServerCallback('gcphone:getItemAmount', function(qtty)
+      cb(qtty > 0)
+    end, 'phone')
   end
-end)
-
-function hasPhone (cb)
-  if (ESX == nil) then return cb(0) end
-  ESX.TriggerServerCallback('gcphone:getItemAmount', function(qtty)
-    cb(qtty > 0)
-  end, 'phone')
+  function ShowNoPhoneWarning () 
+    if (ESX == nil) then return end
+    ESX.ShowNotification("You don\'t have a ~r~phone!~s~")
+  end
 end
-function ShowNoPhoneWarning () 
-  if (ESX == nil) then return end
-  ESX.ShowNotification("Vous n'avez pas de ~r~téléphone~s~")
-end --]] 
-
 
 --====================================================================================
 --  

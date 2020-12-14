@@ -6,4 +6,6 @@ FixePhone = {
   ['008-0001'] = { name = "Cabine Telephonique", coords = { x = 372.25, y = -965.75, z = 28.58 } },
 }
 
+PhoneAsItem = false -- <-- If you want to use a phone as item, just set this to TRUE
+
 ShowNumberNotification = false -- Show Number or Contact Name when you receive new SMS
