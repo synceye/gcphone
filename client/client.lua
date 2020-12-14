@@ -1,7 +1,7 @@
 --====================================================================================
 -- #Author: Jonathan D @ Gannon
 --====================================================================================
-if config.PhoneAsItem then
+if PhoneAsItem then
   ESX = nil
   Citizen.CreateThread(function()
     while ESX == nil do
@@ -51,7 +51,7 @@ end
 function ShowNoPhoneWarning ()
 end
 
-if config.PhoneAsItem then
+if PhoneAsItem then
   function hasPhone (cb)
     if (ESX == nil) then return cb(0) end
     ESX.TriggerServerCallback('gcphone:getItemAmount', function(qtty)
