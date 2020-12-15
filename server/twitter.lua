@@ -244,7 +244,7 @@ end)
 RegisterServerEvent('gcPhone:twitter_postTweets')
 AddEventHandler('gcPhone:twitter_postTweets', function(username, password, message)
   local sourcePlayer = tonumber(source)
-  local srcIdentifier = GetPlayerID()
+  local srcIdentifier = source
   TwitterPostTweet(username, password, message, sourcePlayer, srcIdentifier)
 end)
 
